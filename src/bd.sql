@@ -1,3 +1,9 @@
+DROP TABLE SCORE;
+DROP TABLE utilisateur;
+DROP TABLE REPONSE;
+DROP TABLE QUESTION;
+DROP TABLE Theme;
+
 CREATE TABLE utilisateur (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
@@ -7,18 +13,14 @@ CREATE TABLE utilisateur (
 
 CREATE TABLE questionnaire (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titre VARCHAR(255) NOT NULL,
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    id_categorie INT,
-    id_theme INT,
-    FOREIGN KEY (id_categorie) REFERENCES categorie(id),
-    FOREIGN KEY (id_theme) REFERENCES theme(id)
+    nom VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE QUESTION (
+CREATE TABLE question (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id_question INT,
     id_questionnaire INT,
+    FOREIGN KEY (id_question) REFERENCES question(id),
     FOREIGN KEY (id_questionnaire) REFERENCES questionnaire(id)
 );
 
@@ -33,32 +35,12 @@ CREATE TABLE REPONSE (
 CREATE TABLE SCORE (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilisateur INT,
-    id_questionnaire INT,
     score INT,
-    date_passation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id),
-    FOREIGN KEY (id_questionnaire) REFERENCES questionnaire(id)
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id)
 );
 
-CREATE TABLE CATEGORIE (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL
-);
 
-CREATE TABLE theme (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL
-);
+INSERT INTO questionnaire (id,nom) VALUES (1,'Quiz sur les mathématiques');
 
--- Explication de la bd :
--- Un questionnaire est lié à une catégorie et un thème
--- Par exemple : un questionnaire de catégorie "Mathématiques" et de thème "Calcul mental"
-
--- Un questionnaire est composé de questions
--- Une question est composée de réponses
-
--- Un utilisateur peut passer plusieurs questionnaires
--- Un questionnaire peut être passé par plusieurs utilisateurs
-
--- Un questionnaire est lié à une catégorie et un thème
-
+INSERT INTO question (id,id_question, id_questionnaire) VALUES (1,1,1);
+INSERT INTO question (id,id_question, id_questionnaire) VALUES (2,2,1);
