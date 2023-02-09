@@ -23,7 +23,7 @@ $dsn="mysql:dbname=".BASE.";host=".SERVER;
       printf("Échec de la connexion : %s\n", $e->getMessage());
       exit();
     }
-$sql="SELECT * from CARNET";
+$sql="SELECT * from QUESTIONNAIRE";
 if(!$connexion->query($sql)) echo "Pb d'accès au CARNET";
 else{
      foreach ($connexion->query($sql) as $row)
