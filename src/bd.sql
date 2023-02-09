@@ -1,25 +1,28 @@
-CREATE TABLE utilisateur (
+DROP TABLE SCORE;
+DROP TABLE UTILISATEUR;
+DROP TABLE REPONSE;
+DROP TABLE QUESTION;
+DROP TABLE QUESTIONNAIRE;
+
+CREATE TABLE UTILISATEUR (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    mot_de_passe VARCHAR(255) NOT NULL
+    mot_de_passe VARCHAR(255) NOT NULL,
+    est_admin BOOLEAN NOT NULL
 );
 
-CREATE TABLE questionnaire (
+CREATE TABLE QUESTIONNAIRE (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titre VARCHAR(255) NOT NULL,
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    id_categorie INT,
-    id_theme INT,
-    FOREIGN KEY (id_categorie) REFERENCES categorie(id),
-    FOREIGN KEY (id_theme) REFERENCES theme(id)
+    nom VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE QUESTION (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id_question INT,
     id_questionnaire INT,
-    FOREIGN KEY (id_questionnaire) REFERENCES questionnaire(id)
+    FOREIGN KEY (id_question) REFERENCES QUESTION(id),
+    FOREIGN KEY (id_questionnaire) REFERENCES QUESTIONNAIRE(id)
 );
 
 CREATE TABLE REPONSE (
@@ -27,38 +30,21 @@ CREATE TABLE REPONSE (
     enonce VARCHAR(255) NOT NULL,
     est_correcte BOOLEAN NOT NULL,
     id_question INT,
-    FOREIGN KEY (id_question) REFERENCES question(id)
+    FOREIGN KEY (id_question) REFERENCES QUESTION(id)
 );
 
 CREATE TABLE SCORE (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilisateur INT,
-    id_questionnaire INT,
     score INT,
-    date_passation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id),
-    FOREIGN KEY (id_questionnaire) REFERENCES questionnaire(id)
+    FOREIGN KEY (id_utilisateur) REFERENCES UTILISATEUR(id)
 );
 
-CREATE TABLE CATEGORIE (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL
-);
 
-CREATE TABLE theme (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL
-);
+INSERT INTO QUESTIONNAIRE (id,nom) VALUES (1,'Quiz sur les mathématiques');
 
--- Explication de la bd :
--- Un questionnaire est lié à une catégorie et un thème
--- Par exemple : un questionnaire de catégorie "Mathématiques" et de thème "Calcul mental"
+INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (1,1,1);
+INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (2,2,1);
 
--- Un questionnaire est composé de questions
--- Une question est composée de réponses
-
--- Un utilisateur peut passer plusieurs questionnaires
--- Un questionnaire peut être passé par plusieurs utilisateurs
-
--- Un questionnaire est lié à une catégorie et un thème
-
+INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (1,'admin','admin@gmail.com','admin',True);
+INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (2,'emre','emre@gmail.com','emre',False);
