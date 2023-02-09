@@ -1,27 +1,31 @@
 DROP TABLE SCORE;
-DROP TABLE utilisateur;
+DROP TABLE UTILISATEUR;
 DROP TABLE REPONSE;
 DROP TABLE QUESTION;
+<<<<<<< HEAD
 DROP TABLE questionnaire;
+=======
+DROP TABLE QUESTIONNAIRE;
+>>>>>>> 2977147d4f296b3e38687a00bfe6b9c6bd6817e9
 
-CREATE TABLE utilisateur (
+CREATE TABLE UTILISATEUR (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     mot_de_passe VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE questionnaire (
+CREATE TABLE QUESTIONNAIRE (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE question (
+CREATE TABLE QUESTION (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_question INT,
     id_questionnaire INT,
-    FOREIGN KEY (id_question) REFERENCES question(id),
-    FOREIGN KEY (id_questionnaire) REFERENCES questionnaire(id)
+    FOREIGN KEY (id_question) REFERENCES QUESTION(id),
+    FOREIGN KEY (id_questionnaire) REFERENCES QUESTIONNAIRE(id)
 );
 
 CREATE TABLE REPONSE (
@@ -29,18 +33,18 @@ CREATE TABLE REPONSE (
     enonce VARCHAR(255) NOT NULL,
     est_correcte BOOLEAN NOT NULL,
     id_question INT,
-    FOREIGN KEY (id_question) REFERENCES question(id)
+    FOREIGN KEY (id_question) REFERENCES QUESTION(id)
 );
 
 CREATE TABLE SCORE (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilisateur INT,
     score INT,
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id)
+    FOREIGN KEY (id_utilisateur) REFERENCES UTILISATEUR(id)
 );
 
 
-INSERT INTO questionnaire (id,nom) VALUES (1,'Quiz sur les mathématiques');
+INSERT INTO QUESTIONNAIRE (id,nom) VALUES (1,'Quiz sur les mathématiques');
 
-INSERT INTO question (id,id_question, id_questionnaire) VALUES (1,1,1);
-INSERT INTO question (id,id_question, id_questionnaire) VALUES (2,2,1);
+INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (1,1,1);
+INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (2,2,1);
