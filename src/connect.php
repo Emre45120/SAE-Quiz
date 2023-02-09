@@ -6,7 +6,6 @@ $dsn="mysql:dbname=DBarslanhan;host=servinfo-mariadb";
     try{
       $connexion=new PDO($dsn,"arslanhan","arslanhan");
       $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-      print("Connexion réussie !");
     }
     catch(PDOException $e){
       printf("Échec de la connexion : %s\n", $e->getMessage());

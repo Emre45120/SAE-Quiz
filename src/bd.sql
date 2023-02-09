@@ -2,17 +2,14 @@ DROP TABLE SCORE;
 DROP TABLE UTILISATEUR;
 DROP TABLE REPONSE;
 DROP TABLE QUESTION;
-<<<<<<< HEAD
-DROP TABLE questionnaire;
-=======
 DROP TABLE QUESTIONNAIRE;
->>>>>>> 2977147d4f296b3e38687a00bfe6b9c6bd6817e9
 
 CREATE TABLE UTILISATEUR (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    mot_de_passe VARCHAR(255) NOT NULL
+    mot_de_passe VARCHAR(255) NOT NULL,
+    est_admin BOOLEAN NOT NULL
 );
 
 CREATE TABLE QUESTIONNAIRE (
@@ -48,3 +45,6 @@ INSERT INTO QUESTIONNAIRE (id,nom) VALUES (1,'Quiz sur les mathématiques');
 
 INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (1,1,1);
 INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (2,2,1);
+
+INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (1,'admin','admin@gmail.com','admin',True);
+INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (2,'emre','emre@gmail.com','emre',False);
