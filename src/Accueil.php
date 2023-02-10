@@ -1,3 +1,13 @@
+<?php
+
+require("connect.php");
+
+$sql = "SELECT * FROM QUESTIONNAIRE";
+$stmt = $connexion->prepare($sql);
+$stmt->execute();
+$questionnaires = $stmt->fetchAll();
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +29,11 @@
     <main>
         <h1>Bienvenue sur notre site de quizz</h1>
         <p>Vous pouvez répondre à des quizz et tester vos connaissances !</p>
-        <a href="#">Commencer un quizz</a>
+        <ul>
+        <?php foreach ($questionnaires as $questionnaire) { ?>
+            <li><a href="#"><?php echo $questionnaire['nom']; ?></a></li>
+        <?php } ?>
+        </ul>
     </main>
 </body>
 </html>
