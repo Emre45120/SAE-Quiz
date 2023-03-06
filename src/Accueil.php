@@ -2,6 +2,16 @@
 
 require("connect.php");
 
+session_start(); // démarrer la session
+if (isset($_SESSION["email"])) {
+    // l'utilisateur est connecté
+    $is_authenticated = true;
+} else {
+    // l'utilisateur n'est pas connecté
+    $is_authenticated = false;
+}
+
+
 $sql = "SELECT * FROM QUESTIONNAIRE";
 $stmt = $connexion->prepare($sql);
 $stmt->execute();
@@ -19,10 +29,15 @@ $questionnaires = $stmt->fetchAll();
     <header>
         <nav>
             <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Connexion</a></li>
-                <li><a href="#">Quizz</a></li>
-                <li><a href="#">Score</a></li>
+                <li><a href="Accueil.php">Accueil</a></li>
+                <li><a href="quizz.php">Quizz</a></li>
+                <li><a href="score.php">Score</a></li>
+                <?php if (!$is_authenticated) { ?>
+                <li><a href="conBD.php">Se connecter</a></li>
+            <?php } ?>
+                <?php if ($is_authenticated) { ?>
+                <li><a href="deconnecter.php">Se déconnecter</a></li>
+            <?php } ?>
             </ul>
         </nav>
     </header>
