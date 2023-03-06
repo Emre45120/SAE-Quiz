@@ -16,6 +16,7 @@ if (isset($_SESSION["email"])) {
 } else {
     // l'utilisateur n'est pas connecté
     $is_authenticated = false;
+    echo "Vous n'êtes pas connecté";
 }
 
 $sql = "SELECT * FROM QUESTIONNAIRE";

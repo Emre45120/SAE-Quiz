@@ -4,8 +4,11 @@
 	<title>Quiz</title>
 </head>
 <body>
+	<h1>Quiz</h1>
 	<?php
 	require("connect.php");
+	echo "<h2>Questionnaire</h2>";
+
 
    session_start(); // démarrer la session
    if (isset($_SESSION["email"])) {
@@ -22,6 +25,7 @@
    } else {
        // l'utilisateur n'est pas connecté
        $is_authenticated = false;
+	   echo "Vous devez être connecté pour accéder à ce questionnaire.";
    }
    
 
@@ -33,28 +37,68 @@
       echo "<p>Erreur : l'ID du questionnaire n'a pas été fourni.</p>";
       exit();
   }
+
   
 
-	// Récupérer les questions et réponses du questionnaire
-	$sql = "SELECT q.id_question, q.question, r.id, r.reponse, r.est_correcte FROM question q INNER JOIN reponse r ON q.id_question=r.id_question WHERE q.id_questionnaire=$id_questionnaire ORDER BY q.id_question, r.id";
-	$result = mysqli_query($conn, $sql);
+	// Récupérer les questions  du questionnaire
+	$sql = "SELECT question ,type FROM QUESTION WHERE id_questionnaire = $id_questionnaire";
+	$stmt = $connexion->prepare($sql);
+	$stmt->execute();
+	$questions = $stmt->fetchAll();
 
-	// Afficher les questions et réponses
-	$current_question_id = null;
-	while ($row = mysqli_fetch_assoc($result)) {
-	    if ($row["id_question"] != $current_question_id) {
-	        // Nouvelle question
-	        echo "<h2>" . $row["question"] . "</h2>";
-	        $current_question_id = $row["id_question"];
-	    }
 
-	    // Afficher la réponse
-	    echo "<p><input type='radio' name='" . $row["id_question"] . "' value='" . $row["id"] . "'> " . $row["reponse"] . "</p>";
+
+	foreach ($questions as $question) {
+		echo "<p>" . $question["question"] . "</p>";
+		$idq = $question['id_question'];
+		$sql = "SELECT reponse FROM REPONSE WHERE id_question = $idq";
+		$stmt = $connexion->prepare($sql);
+		$stmt->execute();
+		$reponses = $stmt->fetchAll();
+
+
+
+
+		foreach ($reponses as $reponse) {
+			echo "<p>" . $reponse["reponse"] . "</p>";
+			
+		}
+
+
+
 	}
 
-	// Fermer la connexion
+	
+	// Afficher les questions et réponses du questionnaire
+	// foreach ($questionReponse as $question) {
+    // 	echo "<p>" . $question["question"] . "</p>";
+
+    // 	// Vérifier le type de question et générer le formulaire approprié
+		
+    // 	if ($question["type"] == "choix_multiple") {
+    // 	    echo "<input type='checkbox' name='reponse[]' value='1'>" . $question["reponse"] . "<br>";
+    // 	    echo "<input type='checkbox' name='reponse[]' value='2'>" . $question["reponse"] . "<br>";
+    // 	    echo "<input type='checkbox' name='reponse[]' value='3'>" . $question["reponse"] . "<br>";
+    // 	} elseif ($question["type"] == "choix_unique") {
+    // 	    echo "<input type='radio' name='reponse' value='1'>" . $question["reponse"] . "<br>";
+    // 	    echo "<input type='radio' name='reponse' value='2'>" . $question["reponse"] . "<br>";
+    // 	    echo "<input type='radio' name='reponse' value='3'>" . $question["reponse"] . "<br>";
+    // 	} elseif ($question["type"] == "libre") {
+    // 	    echo "<input type='text' name='reponse'><br>";
+    // 	} else {
+    // 	    // Type de question non pris en charge
+    // 	    echo "<p>Erreur : type de question non pris en charge.</p>";
+    // 	    exit();
+    // 	}
+	// }	
+
+
+
+	// Fermer la connexion à la base de données
 	mysqli_close($conn);
 	?>
+
+
 
 	<!-- Formulaire pour soumettre les réponses -->
 	<form method="post" action="resultats.php">
