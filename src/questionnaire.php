@@ -1,25 +1,22 @@
 <?php
-
 require("connect.php");
 
 session_start(); // démarrer la session
 if (isset($_SESSION["email"])) {
     // l'utilisateur est connecté
     $is_authenticated = true;
+    // récupérer le nom de l'utilisateur connecté
     $email = $_SESSION["email"];
-
+    $sql = "SELECT nom FROM UTILISATEUR WHERE email=:email";
+    $stmt = $connexion->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    $nom_utilisateur = $result["nom"];
 } else {
     // l'utilisateur n'est pas connecté
     $is_authenticated = false;
 }
-
-// Récupérer le nom de l'utilisateur connecté
-$sql = "SELECT nom FROM UTILISATEUR WHERE email = :email";
-$stmt = $connexion->prepare($sql);
-$stmt->bindParam(':email', $email);
-$stmt->execute();
-$user = $stmt->fetch();
-$nom = $user['nom'];
 
 $sql = "SELECT * FROM QUESTIONNAIRE";
 $stmt = $connexion->prepare($sql);
@@ -43,15 +40,21 @@ $questionnaires = $stmt->fetchAll();
                 <li><a href="score.php">Score</a></li>
                 <?php if (!$is_authenticated) { ?>
                 <li><a href="conBD.php">Se connecter</a></li>
-            <?php } ?>
+                <?php } ?>
                 <?php if ($is_authenticated) { ?>
-                <li><a href="deconnecter.php">Se déconnecter</a></li>
-            <?php } ?>
+                <li><a href="deconBD.php">Se déconnecter</a></li>
+                <?php } ?>
             </ul>
         </nav>
     </header>
     <main>
-        <h1>Bienvenue sur notre site de quizz <?php echo $nom; ?></h1>
+        <h1>Bienvenue sur notre site de quizz</h1>
+        <p>Vous pouvez répondre à des quizz et tester vos connaissances !</p>
+        <ul>
+        <?php foreach ($questionnaires as $questionnaire) { ?>
+            <li><a href="quizz.php?id=<?php echo $questionnaire['id']; ?>"><?php echo $questionnaire['nom']; ?></a></li>
+        <?php } ?>
+        </ul>
     </main>
 </body>
 </html>

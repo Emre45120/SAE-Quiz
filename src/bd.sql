@@ -18,19 +18,18 @@ CREATE TABLE QUESTIONNAIRE (
 );
 
 CREATE TABLE QUESTION (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_question INT,
+    id_question INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(255) NOT NULL,
     id_questionnaire INT,
-    FOREIGN KEY (id_question) REFERENCES QUESTION(id),
     FOREIGN KEY (id_questionnaire) REFERENCES QUESTIONNAIRE(id)
 );
 
 CREATE TABLE REPONSE (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    enonce VARCHAR(255) NOT NULL,
+    reponse VARCHAR(255) NOT NULL,
     est_correcte BOOLEAN NOT NULL,
     id_question INT,
-    FOREIGN KEY (id_question) REFERENCES QUESTION(id)
+    FOREIGN KEY (id_question) REFERENCES QUESTION(id_question)
 );
 
 CREATE TABLE SCORE (
@@ -43,8 +42,13 @@ CREATE TABLE SCORE (
 
 INSERT INTO QUESTIONNAIRE (id,nom) VALUES (1,'Quiz sur les mathématiques');
 
-INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (1,1,1);
-INSERT INTO QUESTION (id,id_question, id_questionnaire) VALUES (2,2,1);
+INSERT INTO QUESTION (id_question, question,id_questionnaire) VALUES (1,"Quel est le résultat de 1+1",1);
+INSERT INTO QUESTION (id_question, question,id_questionnaire) VALUES (2,"Quel est le résultat de 2+2",1);
+
+INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (1,'1',True,1);
+INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (2,'2',False,1);
+INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (3,'4',True,2);
+INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (4,'3',False,2);
 
 INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (1,'admin','admin@gmail.com','admin',True);
 INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (2,'emre','emre@gmail.com','emre',False);
