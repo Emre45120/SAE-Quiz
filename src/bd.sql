@@ -58,7 +58,7 @@ INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (4,'3',False,2)
 
 INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (12,'10',False,3);
 INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (5,'20',True,3);
-INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (6,'20',True,3);
+INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (6,'5+15',True,3);
 
 INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (7,'for ',True,4);
 INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (8,'while',True,4);

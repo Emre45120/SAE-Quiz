@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -83,4 +83,154 @@ ul {
     border-radius: 5px;
   }
   
+ */
 
+ /* Global styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  
+  button {
+    display: inline-block;
+    background-color: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #005fa3;
+  }
+  
+  /* Navigation styles */
+  nav {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav li {
+    margin: 0 10px;
+  }
+  
+  nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+  
+  nav a:hover {
+    color: #0077cc;
+  }
+  
+  /* Header styles */
+  header {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  header p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  /* Question styles */
+  .question {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .question p {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .question input[type="checkbox"],
+  .question input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  .question label {
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  
+  .question textarea {
+    display: block;
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .question input[type="checkbox"] + label,
+  .question input[type="radio"] + label {
+    display: inline-block;
+  }
+  
+  /* Submit button styles */
+  .submit-btn {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .submit-btn button {
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0 auto;
+    display: block;
+  }
+  

@@ -21,6 +21,7 @@
             </ul>
         </nav>
     </header>
+	<div class="container">
 	<?php
 	// Connexion à la base de données
 	require("connect.php");
@@ -89,6 +90,8 @@
         }
     }
     echo '<br><input type="submit" name="submit" value="Soumettre">';
-    echo '</form>';   ?>        
+    echo '</form>';   ?>    
+	
+	</div>
 </body>
 </html>
