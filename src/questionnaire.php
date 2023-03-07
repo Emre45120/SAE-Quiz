@@ -43,7 +43,7 @@ $questionnaires = $stmt->fetchAll();
                 <li><a href="conBD.php">Se connecter</a></li>
                 <?php } ?>
                 <?php if ($is_authenticated) { ?>
-                <li><a href="deconBD.php">Se déconnecter</a></li>
+                <li><a href="deconnecter.php">Se déconnecter</a></li>
                 <?php } ?>
             </ul>
         </nav>
