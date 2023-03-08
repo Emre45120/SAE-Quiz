@@ -14,7 +14,7 @@ CREATE TABLE UTILISATEUR (
 
 CREATE TABLE QUESTIONNAIRE (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL
+    nomQ VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE QUESTION (
@@ -36,13 +36,15 @@ CREATE TABLE REPONSE (
 CREATE TABLE SCORE (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_utilisateur INT,
+    id_questionnaire INT,
     score INT,
-    FOREIGN KEY (id_utilisateur) REFERENCES UTILISATEUR(id)
+    FOREIGN KEY (id_utilisateur) REFERENCES UTILISATEUR(id),
+    FOREIGN KEY (id_questionnaire) REFERENCES QUESTIONNAIRE(id)
 );
 
 
-INSERT INTO QUESTIONNAIRE (id,nom) VALUES (1,'Quiz sur les mathématiques');
-INSERT INTO QUESTIONNAIRE (id,nom) VALUES (2,'Quiz sur la programmation');
+INSERT INTO QUESTIONNAIRE (id,nomQ) VALUES (1,'Quiz sur les mathématiques');
+INSERT INTO QUESTIONNAIRE (id,nomq) VALUES (2,'Quiz sur la programmation');
 
 INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (1,"Quel est le résultat de 1+1 ? ","choix_unique",1);
 INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (2,"Quel est le résultat de 2+2 ?","choix_unique",1);
@@ -76,3 +78,6 @@ INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (14,'50',True,6
 
 INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (1,'admin','admin@gmail.com','admin',True);
 INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (2,'emre','emre@gmail.com','emre',False);
+INSERT INTO UTILISATEUR (id,nom,email,mot_de_passe,est_admin) VALUES (3,'mehdi','mehdi@gmail.com','mehdi',False);
+
+

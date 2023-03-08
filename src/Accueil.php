@@ -33,6 +33,7 @@ $questionnaires = $stmt->fetchAll();
     <meta charset="UTF-8">
     <title>Page d'accueil</title>
     <link rel="stylesheet" type="text/css" href="css/styleAccueil.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 <body>
     <header>

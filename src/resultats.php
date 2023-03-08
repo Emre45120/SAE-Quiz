@@ -9,12 +9,13 @@ if (isset($_SESSION["email"])) {
     $is_authenticated = true;
     // récupérer le nom de l'utilisateur connecté
     $email = $_SESSION["email"];
-    $sql = "SELECT nom FROM UTILISATEUR WHERE email=:email";
+    $sql = "SELECT nom,id FROM UTILISATEUR WHERE email=:email";
     $stmt = $connexion->prepare($sql);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $result = $stmt->fetch();
     $nom_utilisateur = $result["nom"];
+    $id_utilisateur = $result["id"];
 } else {
     // l'utilisateur n'est pas connecté
     $is_authenticated = false;
@@ -69,9 +70,9 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     $stmt = $connexion->prepare($sql);
     $stmt->bindParam(':id_question', $id_question);
     $stmt->execute();
-    $result = $stmt->fetch();
-    $question = $result["question"];
-    $type_question = $result["type"];
+    $result2 = $stmt->fetch();
+    $question = $result2["question"];
+    $type_question = $result2["type"];
 
 
     // Récupérer les réponses correctes pour cette question
@@ -79,8 +80,8 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     $stmt = $connexion->prepare($sql);
     $stmt->bindParam(':id_question', $id_question);
     $stmt->execute();
-    $result = $stmt->fetchAll();
-    $reponses_correctes = array_column($result, "reponse");
+    $result3 = $stmt->fetchAll();
+    $reponses_correctes = array_column($result3, "reponse");
 
     // Vérifier si les réponses de l'utilisateur sont correctes
     $est_correct = true;
@@ -140,16 +141,25 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     
     // Afficher la question, les réponses de l'utilisateur et si la réponse est correcte ou non
     if ($est_correct) {
-        echo "<p>Bravo , la réponse à la question ".  $question   ." était la bonne !</p>";
-    } else {
-        echo "<p>La réponse à la question " . $question  . " est incorrecte la bonne réponse était " . implode(", ", $reponses_correctes). "</p>";
+        echo "<p class='correct'>Bravo, la réponse à la question \"" . $question . "\" est correcte.</p>";
+      } else {
+        echo "<p class='incorrect'>Désolé, la réponse à la question \"" . $question . "\" est incorrecte.<br>La bonne réponse était " . implode(", ", $reponses_correctes). "</p>";
     }
+      
+
 }
 
 ?>
     <?php
     // afficher le score de l'utilisateur
     echo "<p>Votre score est de : " . $score . " !</p>";
+    // Insérer le score dans la table SCORE
+    $sql = "INSERT INTO SCORE (id_utilisateur,id_questionnaire,score) VALUES (:id_utilisateur, :id_questionnaire,:score)";
+    $stmt = $connexion->prepare($sql);
+    $stmt->bindParam(':id_utilisateur', $id_utilisateur);
+    $stmt->bindParam(':id_questionnaire', $id_questionnaire);
+    $stmt->bindParam(':score', $score);
+    $stmt->execute();
     ?>
     <!-- afficher les boutons de navigation -->
     <div class="navigation-buttons">

@@ -53,7 +53,7 @@ $questionnaires = $stmt->fetchAll();
         <p>Vous pouvez répondre à des quizz et tester vos connaissances !</p>
         <ul>
         <?php foreach ($questionnaires as $questionnaire) { ?>
-            <li><a href="quizz.php?id=<?php echo $questionnaire['id']; ?>"><?php echo $questionnaire['nom']; ?></a></li>
+            <li><a href="quizz.php?id=<?php echo $questionnaire['id']; ?>"><?php echo $questionnaire['nomQ']; ?></a></li>
         <?php } ?>
         </ul>
     </main>
