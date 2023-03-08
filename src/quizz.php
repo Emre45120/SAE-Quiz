@@ -1,3 +1,28 @@
+<?php
+// Connexion à la base de données
+require("connect.php");
+
+// Vérifier si l'utilisateur est connecté
+session_start(); // démarrer la session
+if (isset($_SESSION["email"])) {
+    // l'utilisateur est connecté
+    $is_authenticated = true;
+    // récupérer le nom de l'utilisateur connecté
+    $email = $_SESSION["email"];
+    $sql = "SELECT nom FROM UTILISATEUR WHERE email=:email";
+    $stmt = $connexion->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    $nom_utilisateur = $result["nom"];
+} else {
+    // l'utilisateur n'est pas connecté
+    $is_authenticated = false;
+    echo "Vous devez être connecté pour accéder à ce questionnaire.";
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,28 +48,6 @@
     </header>
 	<div class="container">
 	<?php
-	// Connexion à la base de données
-	require("connect.php");
-
-	// Vérifier si l'utilisateur est connecté
-	session_start(); // démarrer la session
-	if (isset($_SESSION["email"])) {
-		// l'utilisateur est connecté
-		$is_authenticated = true;
-		// récupérer le nom de l'utilisateur connecté
-		$email = $_SESSION["email"];
-		$sql = "SELECT nom FROM UTILISATEUR WHERE email=:email";
-		$stmt = $connexion->prepare($sql);
-		$stmt->bindParam(':email', $email);
-		$stmt->execute();
-		$result = $stmt->fetch();
-		$nom_utilisateur = $result["nom"];
-	} else {
-		// l'utilisateur n'est pas connecté
-		$is_authenticated = false;
-		echo "Vous devez être connecté pour accéder à ce questionnaire.";
-		exit();
-	}
 
 	// Récupérer l'ID du questionnaire à partir de l'URL
 	if (isset($_GET["id"])) {
@@ -82,7 +85,13 @@
 				echo '<br>';
 			} elseif ($question["type"] == "libre") {
 				echo '<textarea name="reponse[' . $idq . ']"></textarea>';
-			} else {
+
+			
+			} else if ($question["type"] == "slider"){
+				echo '<input type="range" name="reponse[' . $idq . ']" min="0" max="100" value="'. $reponse["reponse"] . '" id="slider" min="0" max="100" step="1">';
+	        	echo '<p>Valeur actuelle : <span id="valeur"></span></p>';
+				
+			}else {
 				// Type de question non pris en charge
 				echo "<p>Erreur : type de question non pris en charge</p>";
                 exit();
@@ -94,4 +103,13 @@
 	
 	</div>
 </body>
+<script>
+		var slider = document.getElementById("slider");
+		var valeur = document.getElementById("valeur");
+
+		// Affiche la valeur actuelle du slider lorsqu'il est modifié
+		slider.addEventListener("input", function() {
+			valeur.innerHTML = slider.value;
+		});
+	</script>
 </html>

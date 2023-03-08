@@ -20,7 +20,7 @@ CREATE TABLE QUESTIONNAIRE (
 CREATE TABLE QUESTION (
     id_question INT AUTO_INCREMENT PRIMARY KEY,
     question VARCHAR(255) NOT NULL,
-    type ENUM ('choix_multiple','choix_unique','libre') NOT NULL,
+    type ENUM ('choix_multiple','choix_unique','libre','slider') NOT NULL,
     id_questionnaire INT,
     FOREIGN KEY (id_questionnaire) REFERENCES QUESTIONNAIRE(id)
 );
@@ -44,10 +44,12 @@ CREATE TABLE SCORE (
 INSERT INTO QUESTIONNAIRE (id,nom) VALUES (1,'Quiz sur les mathématiques');
 INSERT INTO QUESTIONNAIRE (id,nom) VALUES (2,'Quiz sur la programmation');
 
-INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (1,"Quel est le résultat de 1+1","choix_unique",1);
-INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (2,"Quel est le résultat de 2+2","choix_unique",1);
-INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (3,"Que fait 10+10","choix_multiple",1);
-INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (4,"Quel sont les différentes boucles qui existe","choix_multiple",2);
+INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (1,"Quel est le résultat de 1+1 ? ","choix_unique",1);
+INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (2,"Quel est le résultat de 2+2 ?","choix_unique",1);
+INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (3,"Que fait 10+10 ?","choix_multiple",1);
+INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (5,"Quel est le théorème connue utilisé sur les triangle ?","libre",1);
+INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (6,"Mettre un pourcentage bonne rep à 50 ?","slider",1);
+INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (4,"Quel sont les différentes boucles qui existe ?","choix_multiple",2);
 
 
 INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (1,'2',True,1);
@@ -66,7 +68,9 @@ INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (9,'do while',T
 INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (10,'do for',False,4);
 INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (11,'for while',False,4);
 
+INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (13,'pythagore',True,5);
 
+INSERT INTO REPONSE (id,reponse,est_correcte,id_question) VALUES (14,'50',True,6);
 
 
 

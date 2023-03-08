@@ -233,4 +233,13 @@ ul {
     margin: 0 auto;
     display: block;
   }
+
+  .slider-value {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
   

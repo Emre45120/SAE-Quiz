@@ -1,3 +1,28 @@
+<?php
+// Connexion à la base de données
+require("connect.php");
+
+// Vérifier si l'utilisateur est connecté
+session_start(); // démarrer la session
+if (isset($_SESSION["email"])) {
+    // l'utilisateur est connecté
+    $is_authenticated = true;
+    // récupérer le nom de l'utilisateur connecté
+    $email = $_SESSION["email"];
+    $sql = "SELECT nom FROM UTILISATEUR WHERE email=:email";
+    $stmt = $connexion->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    $nom_utilisateur = $result["nom"];
+} else {
+    // l'utilisateur n'est pas connecté
+    $is_authenticated = false;
+    echo "Vous devez être connecté pour accéder à ce questionnaire.";
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,31 +46,7 @@
             </ul>
         </nav>
     </header>
-
-<?php
-
-// Connexion à la base de données
-require("connect.php");
-
-// Vérifier si l'utilisateur est connecté
-session_start(); // démarrer la session
-if (isset($_SESSION["email"])) {
-    // l'utilisateur est connecté
-    $is_authenticated = true;
-    // récupérer le nom de l'utilisateur connecté
-    $email = $_SESSION["email"];
-    $sql = "SELECT nom FROM UTILISATEUR WHERE email=:email";
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    $result = $stmt->fetch();
-    $nom_utilisateur = $result["nom"];
-} else {
-    // l'utilisateur n'est pas connecté
-    $is_authenticated = false;
-    echo "Vous devez être connecté pour accéder à ce questionnaire.";
-    exit();
-}
+    <?php
 
 // Vérifier si l'ID du questionnaire est fourni
 if (!isset($_POST["id_questionnaire"])) {
@@ -61,6 +62,7 @@ echo "<p>Questionnaire : " . $id_questionnaire . "</p>";
 // Récupérer les réponses de l'utilisateur
 $reponses_utilisateur = $_POST["reponse"];
 // Vérifier les réponses de l'utilisateur
+$score = 0;
 foreach ($reponses_utilisateur as $id_question => $reponses) {
     // Récupérer la question liée à la réponse
     $sql = "SELECT question ,type FROM QUESTION WHERE id_question = :id_question";
@@ -89,9 +91,10 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     if ($type_question == "choix_unique") {
         if (!in_array($reponses, $reponses_correctes)) {
             $est_correct = false;
-            // afficher les réponses correctes
-            echo "<p>Réponses correctes : " . implode(", ", $reponses_correctes) . "</p>";
-            
+            $score += -50;
+        }
+        else {
+            $score += 100;
         }
 
     
@@ -99,71 +102,61 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
         // si la question est de type choix multiple
         if (count ($reponses) != count ($reponses_correctes)) {
             $est_correct = false;
-            // afficher les réponses correctes
-            echo "<p>Réponses correctes : " . implode(", ", $reponses_correctes) . "</p>";
+            $score += -50;
         } else {
             foreach ($reponses as $reponse) {
                 if (!in_array($reponse, $reponses_correctes)) {
                     $est_correct = false;
-                    // afficher les réponses correctes
-                    echo "<p>Réponses correctes : " . implode(", ", $reponses_correctes) . "</p>";
+                    $score += -50;    
                     break;
                 }
             }
+            if ($est_correct) {
+                $score += 100;
+            }
         }
-    
+
     }
-
-    // // si la question est de type choix unique
-
+    else if ($type_question == "libre") {
+        // si la question est de type texte
+        if (!in_array($reponses, $reponses_correctes)) {
+            $est_correct = false;
+            $score += -50;
+        }
+        else {
+            $score += 100;
+        }
+    }
+    else if ($type_question == "slider"){
+        // si la question est de type slider
+        if (!in_array($reponses, $reponses_correctes)) {
+            $est_correct = false;
+            $score += -50;
+        }
+        else {
+            $score += 100;
+        }
+    }
     
-    // if (count ($reponses) != count ($reponses_correctes)) {
-    //     $est_correct = false;
-    //     // afficher les réponses correctes
-    //     echo "<p>Réponses correctes : " . implode(", ", $reponses_correctes) . "</p>";
-    // } else {
-    //     foreach ($reponses as $reponse) {
-    //         if (!in_array($reponse, $reponses_correctes)) {
-    //             $est_correct = false;
-    //             // afficher les réponses correctes
-    //             echo "<p>Réponses correctes : " . implode(", ", $reponses_correctes) . "</p>";
-    //             break;
-    //         }
-    //     }
-    // }
-
-    // // si la question est de type choix multiple
-
-
-    // if (count ($reponses) != count ($reponses_correctes)) {
-    //     $est_correct = false;
-    //     // afficher les réponses correctes
-    //     echo "<p>Réponses correctes : " . implode(", ", $reponses_correctes) . "</p>";
-    // } else {
-    //     foreach ($reponses as $reponse) {
-    //         if (!in_array($reponse, $reponses_correctes)) {
-    //             $est_correct = false;
-    //             // afficher les réponses correctes
-    //             echo "<p>Réponses correctes : " . implode(", ", $reponses_correctes) . "</p>";
-    //             break;
-    //         }
-    //     }
-    // }
-    
-
-    
-
     // Afficher la question, les réponses de l'utilisateur et si la réponse est correcte ou non
-    echo "<p>Question : " . $question . "</p>";
-    echo "<p>Réponse de l'utilisateur : " . $reponses . "</p>";
     if ($est_correct) {
-        echo "<p>La réponse est correcte.</p>";
+        echo "<p>Bravo , la réponse à la question ".  $question   ." était la bonne !</p>";
     } else {
-        echo "<p>La réponse est incorrecte.</p>";
+        echo "<p>La réponse à la question " . $question  . " est incorrecte la bonne réponse était " . implode(", ", $reponses_correctes). "</p>";
     }
 }
 
 ?>
+    <?php
+    // afficher le score de l'utilisateur
+    echo "<p>Votre score est de : " . $score . " !</p>";
+    ?>
+    <!-- afficher les boutons de navigation -->
+    <div class="navigation-buttons">
+        <button onclick="window.location.href='questionnaire.php'">Recommencer un quiz</button>
+        <button onclick="window.location.href='score.php'">Voir les scores</button>
+    </div>
+
 </body>
 </html>
 
