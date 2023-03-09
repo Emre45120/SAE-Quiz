@@ -141,7 +141,7 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     
     // Afficher la question, les réponses de l'utilisateur et si la réponse est correcte ou non
     if ($est_correct) {
-        echo "<p class='correct'>Bravo, la réponse à la question \"" . $question . "\" est correcte.</p>";
+        echo "<p class='correct'>Bravo, la réponse à la question \"" . $question . "\" est correcte.<brLa bonne réponse était bien " . implode(", ", $reponses_correctes). "</p>";
       } else {
         echo "<p class='incorrect'>Désolé, la réponse à la question \"" . $question . "\" est incorrecte.<br>La bonne réponse était " . implode(", ", $reponses_correctes). "</p>";
     }

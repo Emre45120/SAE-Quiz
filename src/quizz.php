@@ -21,6 +21,8 @@ if (isset($_SESSION["email"])) {
     echo "Vous devez être connecté pour accéder à ce questionnaire.";
     exit();
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +49,7 @@ if (isset($_SESSION["email"])) {
         </nav>
     </header>
 	<div class="container">
+			
 	<?php
 
 	// Récupérer l'ID du questionnaire à partir de l'URL
@@ -58,15 +61,32 @@ if (isset($_SESSION["email"])) {
 		exit();
 	}
 
+	$sql = "SELECT * FROM QUESTIONNAIRE where id= $id_questionnaire";
+	$stmt = $connexion->prepare($sql);
+	$stmt->execute();
+	$questionnaires = $stmt->fetchAll();
+
+	// Afficher le questionnaire ( son nom )
+	foreach ($questionnaires as $questionnaire) {
+		echo "<h1>" . $questionnaire["nomQ"] . "</h1>";
+	}
+
 	// Récupérer les questions du questionnaire
 	$sql = "SELECT id_question, question, type FROM QUESTION WHERE id_questionnaire = $id_questionnaire";
 	$stmt = $connexion->prepare($sql);
 	$stmt->execute();
 	$questions = $stmt->fetchAll();
 
-	echo '<form method="post" action="resultats.php">';
-	echo '<input type="hidden" name="id_questionnaire" value="' . $id_questionnaire . '">';
+	
 
+
+	
+	
+	
+
+	echo '<form method="post" action="resultats.php">';
+	echo '<input type="hidden" name="id_questionnaire" value="' . $id_questionnaire . '"><br><br>';
+	
 	foreach ($questions as $question) {
 		echo "<p>" . $question["question"] . "</p>";
 		$idq = $question['id_question'];
@@ -76,30 +96,36 @@ if (isset($_SESSION["email"])) {
 		$reponses = $stmt->fetchAll();
 		foreach ($reponses as $reponse) {
 			if ($question["type"] == "choix_multiple") {
-				echo '<input type="checkbox" name="reponse[' . $idq . '][]" value="' . $reponse["reponse"] . '">';
+				echo '<div class="checkbox-container">';
+				echo '<input type="checkbox"  name="reponse[' . $idq . '][]" value="' . $reponse["reponse"] . '" class="animated-checkbox">';
 				echo '<label for="' . $reponse["reponse"] . '">' . $reponse["reponse"] . '</label>';
-				echo '<br>';
+				echo '</div><br>';
+	
 			} elseif ($question["type"] == "choix_unique") {
-				echo '<input type="radio" name="reponse[' . $idq . ']" value="' . $reponse["reponse"] . '">';
-				echo '<label for="' . $reponse["reponse"] . '">' . $reponse["reponse"] . '</label>';
-				echo '<br>';
+				echo '<input type="radio" required name="reponse[' . $idq . ']" value="' . $reponse["reponse"] . '">';
+				echo '<label for="' . $reponse["reponse"] . '">' . $reponse["reponse"] . '</label><br><br>';
+	
 			} elseif ($question["type"] == "libre") {
-				echo '<textarea name="reponse[' . $idq . ']"></textarea>';
-
-			
+				echo '<textarea name="reponse[' . $idq . ']" required placeholder="Entrez votre réponse ici"></textarea><br><br>';
+	
 			} else if ($question["type"] == "slider"){
 				echo '<input type="range" name="reponse[' . $idq . ']" min="0" max="100" value="'. $reponse["reponse"] . '" id="slider" min="0" max="100" step="1">';
-	        	echo '<p>Valeur actuelle : <span id="valeur"></span></p>';
-				
+				echo '<p>Valeur actuelle : <span id="valeur">' . $reponse["reponse"] . '</span></p><br>';
+	
 			}else {
 				// Type de question non pris en charge
 				echo "<p>Erreur : type de question non pris en charge</p>";
-                exit();
-            }
-        }
-    }
-    echo '<br><input type="submit" name="submit" value="Soumettre">';
-    echo '</form>';   ?>    
+				exit();
+			}
+		}
+		echo '<br>';
+	}
+	echo '<input type="submit" name="submit" value="Soumettre">';
+	echo '</form>';
+	  
+	?>    
+
+
 	
 	</div>
 </body>

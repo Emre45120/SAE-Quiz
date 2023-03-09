@@ -57,11 +57,23 @@ $result->execute();
             </ul>
         </nav>
     </header>
-    <div class="container-fluid pt-4 px-4">
+    <div class="container-fluid pt-4 px-4 ">
     <div class="bg-light text-center rounded p-4">
-        <div class="table-responsive">
+        <form method="post">
+            <label for="sort">Trier par:</label>
+            <select name="sort" id="sort">
+                <option value="nom ASC">Nom (A-Z)</option>
+                <option value="nom DESC">Nom (Z-A)</option>
+                <option value="nomQ ASC">Questionnaire (A-Z)</option>
+                <option value="nomQ DESC">Questionnaire (Z-A)</option>
+                <option value="score ASC">Score (Croissant)</option>
+                <option value="score DESC">Score (Décroissant)</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filtrer</button>
+        </form>
+        <div class="table-responsive my-4">
             <table class="table table-dark">
-             <thead>
+                <thead>
                     <tr class="text">
                         <th scope="col">Nom Joueur</th>
                         <th scope="col">Questionnaire</th>
@@ -70,6 +82,19 @@ $result->execute();
                 </thead>
                 <tbody>
                     <?php
+                    // Récupérer le filtre sélectionné par l'utilisateur
+                    $sort = isset($_POST['sort']) ? $_POST['sort'] : 'score DESC';
+                    
+                    // Modifier la requête SQL pour inclure le filtre sélectionné
+                    $sql = "SELECT u.nom, q.nomQ, s.score
+                            FROM SCORE s
+                            INNER JOIN UTILISATEUR u ON s.id_utilisateur = u.id
+                            INNER JOIN QUESTIONNAIRE q ON s.id_questionnaire = q.id
+                            ORDER BY $sort";
+                    
+                    $result = $connexion->prepare($sql);
+                    $result->execute();
+                    
                     if ($result->rowCount() > 0) {
                         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                             echo "<tr>";
@@ -77,7 +102,7 @@ $result->execute();
                             echo "<td>" . $row["nomQ"] . "</td>";
                             echo "<td>" . $row["score"] . "</td>";
                             echo "</tr>";
-                        }                        
+                        }
                     } else {
                         echo "0 results";
                     }
@@ -87,3 +112,4 @@ $result->execute();
         </div>
     </div>
 </div>
+

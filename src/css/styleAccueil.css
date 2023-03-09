@@ -249,6 +249,124 @@ ul {
   .incorrect {
     color: red;
   }
+
+  /* Styles pour le conteneur de la checkbox */
+.checkbox-container {
+  position: relative;
+  margin-bottom: 10px;
   
-  
-  
+}
+
+/* Styles pour la checkbox */
+.animated-checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+/* Styles pour l'aspect de la checkbox */
+.animated-checkbox + label::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 25px; /* Nouveau paramètre pour la taille de la flèche */
+  border: 2px solid #ccc;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+/* Styles pour l'animation de la checkbox lorsqu'elle est cochée */
+.animated-checkbox:checked + label::before {
+  content: '\2714';
+  color: #4CAF50; /* Nouvelle couleur pour la flèche verte */
+  background-color: #fff;
+  border-color: #4CAF50; /* Nouvelle couleur pour la bordure */
+  transition: all 0.2s ease;
+}
+
+textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  transition: border-color 0.2s ease-in-out;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+textarea::placeholder {
+  color: #bbb;
+}
+
+textarea:hover, textarea:focus {
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+input[type="range"]:focus {
+  opacity: 1;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:hover::-moz-range-thumb {
+  background-color: #3e8e41;
+}
+
+input[type="range"]::-moz-focus-outer {
+  border: 0;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+
