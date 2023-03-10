@@ -1,0 +1,93 @@
+{
+    "UTILISATEUR": [
+      {
+        "nom": "Doe",
+        "email": "doe@gmail.com",
+        "mot_de_passe": "doepassword",
+        "est_admin": false
+      },
+      {
+        "nom": "Smith",
+        "email": "smith@gmail.com",
+        "mot_de_passe": "smithpassword",
+        "est_admin": true
+      }
+    ],
+    "QUESTIONNAIRE": [
+      {
+        "nomQ": "Test de personnalité"
+      }
+    ],
+    "QUESTION": [
+      {
+        "question": "Quelle est votre couleur préférée ?",
+        "type": "choix_unique",
+        "id_questionnaire": 1
+      },
+      {
+        "question": "Quelle est votre plat préféré ?",
+        "type": "libre",
+        "id_questionnaire": 1
+      },
+      {
+        "question": "Quelle est votre saison préférée ?",
+        "type": "choix_multiple",
+        "id_questionnaire": 1
+      }
+    ],
+    "REPONSE": [
+      {
+        "reponse": "Rouge",
+        "est_correcte": true,
+        "id_question": 1
+      },
+      {
+        "reponse": "Bleu",
+        "est_correcte": false,
+        "id_question": 1
+      },
+      {
+        "reponse": "Vert",
+        "est_correcte": false,
+        "id_question": 1
+      },
+      {
+        "reponse": "Pizza",
+        "est_correcte": true,
+        "id_question": 2
+      },
+      {
+        "reponse": "Printemps",
+        "est_correcte": true,
+        "id_question": 3
+      },
+      {
+        "reponse": "Été",
+        "est_correcte": true,
+        "id_question": 3
+      },
+      {
+        "reponse": "Automne",
+        "est_correcte": true,
+        "id_question": 3
+      },
+      {
+        "reponse": "Hiver",
+        "est_correcte": false,
+        "id_question": 3
+      }
+    ],
+    "SCORE": [
+      {
+        "id_utilisateur": 1,
+        "id_questionnaire": 1,
+        "score": 8
+      },
+      {
+        "id_utilisateur": 2,
+        "id_questionnaire": 1,
+        "score": 7
+      }
+    ]
+  }
+  

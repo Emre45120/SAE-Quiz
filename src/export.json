@@ -1,0 +1,167 @@
+{
+    "UTILISATEUR": [
+        {
+            "id": 1,
+            "nom": "admin",
+            "email": "admin@gmail.com",
+            "mot_de_passe": "admin",
+            "est_admin": 1
+        },
+        {
+            "id": 2,
+            "nom": "emre",
+            "email": "emre@gmail.com",
+            "mot_de_passe": "emre",
+            "est_admin": 0
+        },
+        {
+            "id": 3,
+            "nom": "mehdi",
+            "email": "mehdi@gmail.com",
+            "mot_de_passe": "mehdi",
+            "est_admin": 0
+        }
+    ],
+    "QUESTIONNAIRE": [
+        {
+            "id": 1,
+            "nomQ": "Quiz sur les math\u00e9matiques"
+        },
+        {
+            "id": 2,
+            "nomQ": "Quiz sur la programmation"
+        }
+    ],
+    "QUESTION": [
+        {
+            "id_question": 1,
+            "question": "Quel est le r\u00e9sultat de 1+1 ? ",
+            "type": "choix_unique",
+            "id_questionnaire": 1
+        },
+        {
+            "id_question": 2,
+            "question": "Quel est le r\u00e9sultat de 2+2 ?",
+            "type": "choix_unique",
+            "id_questionnaire": 1
+        },
+        {
+            "id_question": 3,
+            "question": "Que fait 10+10 ?",
+            "type": "choix_multiple",
+            "id_questionnaire": 1
+        },
+        {
+            "id_question": 4,
+            "question": "Quel sont les diff\u00e9rentes boucles qui existe ?",
+            "type": "choix_multiple",
+            "id_questionnaire": 2
+        },
+        {
+            "id_question": 5,
+            "question": "Quel est le th\u00e9or\u00e8me connue utilis\u00e9 sur les triangle ?",
+            "type": "libre",
+            "id_questionnaire": 1
+        },
+        {
+            "id_question": 6,
+            "question": "Mettre un pourcentage bonne rep \u00e0 50 ?",
+            "type": "slider",
+            "id_questionnaire": 1
+        }
+    ],
+    "REPONSE": [
+        {
+            "id": 1,
+            "reponse": "2",
+            "est_correcte": 1,
+            "id_question": 1
+        },
+        {
+            "id": 2,
+            "reponse": "5",
+            "est_correcte": 0,
+            "id_question": 1
+        },
+        {
+            "id": 3,
+            "reponse": "4",
+            "est_correcte": 1,
+            "id_question": 2
+        },
+        {
+            "id": 4,
+            "reponse": "3",
+            "est_correcte": 0,
+            "id_question": 2
+        },
+        {
+            "id": 5,
+            "reponse": "20",
+            "est_correcte": 1,
+            "id_question": 3
+        },
+        {
+            "id": 6,
+            "reponse": "5+15",
+            "est_correcte": 1,
+            "id_question": 3
+        },
+        {
+            "id": 7,
+            "reponse": "for ",
+            "est_correcte": 1,
+            "id_question": 4
+        },
+        {
+            "id": 8,
+            "reponse": "while",
+            "est_correcte": 1,
+            "id_question": 4
+        },
+        {
+            "id": 9,
+            "reponse": "do while",
+            "est_correcte": 1,
+            "id_question": 4
+        },
+        {
+            "id": 10,
+            "reponse": "do for",
+            "est_correcte": 0,
+            "id_question": 4
+        },
+        {
+            "id": 11,
+            "reponse": "for while",
+            "est_correcte": 0,
+            "id_question": 4
+        },
+        {
+            "id": 12,
+            "reponse": "10",
+            "est_correcte": 0,
+            "id_question": 3
+        },
+        {
+            "id": 13,
+            "reponse": "pythagore",
+            "est_correcte": 1,
+            "id_question": 5
+        },
+        {
+            "id": 14,
+            "reponse": "50",
+            "est_correcte": 1,
+            "id_question": 6
+        }
+    ],
+    "SCORE": [
+        {
+            "id": 1,
+            "id_utilisateur": 3,
+            "id_questionnaire": 1,
+            "score": 350
+        }
+    ]
+}
