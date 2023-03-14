@@ -22,7 +22,6 @@ $nom_utilisateur = $result["nom"];
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
-    echo"<h1>test</h1>";
     $titre = $_POST["titre"];
     $questions = array();
 
@@ -35,9 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer l'ID du questionnaire inséré
     $id_questionnaire = $connexion->lastInsertId();
 
-    echo "ID du questionnaire inséré : $id_questionnaire";
-    echo "" .gettype($questions). "";
-
     foreach ($_POST as $name => $value) {
         if (strpos($name, "question_") === 0) {
             $index = substr($name, strlen("question_"));
@@ -47,25 +43,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "question" => $value,
                 "type" => $type,
                 "reponses" => null
-            );
 
+            );
             // Récupérer les réponses pour la question
             if ($type === "choix_unique" || $type === "choix_multiple") {
-                $reponses =array();
+                $reponses = array();
+                $numrep =1;
                 foreach ($_POST as $name => $value) {
-                    echo "<h2>test</h2>";
-                    if (strpos($name, "option_" . $index . "_") === 0) {
+                    echo "<h1> $name </h1>";
+                    $est_correcte = 0;
+                    $txt = "";
+    
+                    
+                    if (strpos($name, "option_" . $index . "_". $numrep) === 0) {
+                        // Récupérer le texte de la réponse
                         if ($value !== "") {
-                            $reponses[] = $value;
+                            $txt = $value;
                         }
+                        foreach ($_POST as $name => $value) {
+                            if (strpos($name, "bonne_reponse_" . $index . "_". $numrep) === 0) {
+                                // Vérifier si checkbox est cochée ou le radio est sélectionné
+                                echo "<h2> ".$value." </h2>";
+                                if ($value == "".$numrep) {
+                                    $est_correcte = 1;
+                                }
+                            }
+                        }
+
+                        $numrep++;
+
+
+                    }
+
+                            
+
+                    
+
+                    // Vérifier si la réponse contient du texte avant de l'ajouter
+                    if ($txt !== "") {
+                        $reponse = array(
+                            "txt" => $txt,
+                            "est_correcte" => $est_correcte
+                        );
+                        $reponses[] = $reponse;
                     }
                 }
-                
                 $question["reponses"] = $reponses;
             }
+
             if ($type === "libre" || $type === "slider") {
                 foreach ($_POST as $name => $value) {
-                    echo "<h2>test</h2>";
                     if (strpos($name, "option_" . $index . "_") === 0) {
                         if ($value !== "") {
                             $question["reponses"] = $value;
@@ -77,6 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $questions[] = $question;
+            
         }
     }
 
@@ -98,20 +126,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Insérer les réponses dans la table REPONSE
         if ($question["type"] === "choix_unique" || $question["type"] === "choix_multiple") {
-            echo "<h1>test111</h1>";
-            echo "" .gettype($question["reponses"]). "";
-            echo "" .count($question["reponses"]). "";
-            
+            echo count($question["reponses"]);
+            echo $question["reponses"][0]["txt"];
+ 
             foreach ($question["reponses"] as $reponse) {
-                echo "<h1>test111</h1>";
-                $sql = "INSERT INTO REPONSE (reponse,est_correcte, id_question) VALUES (:reponse,true,:id_question)";
+
+
+                $sql = "INSERT INTO REPONSE (reponse,est_correcte, id_question) VALUES (:reponse,:estcorrecte,:id_question)";
                 $stmt = $connexion->prepare($sql);
-                $stmt->bindParam(':reponse', $reponse);
+                $stmt->bindParam(':reponse', $reponse["txt"]);
+                $stmt->bindParam(':estcorrecte', $reponse["est_correcte"]);
                 $stmt->bindParam(':id_question', $id_question);
                 $stmt->execute();
             }
         }else if ($question["type"] === "libre" || $question["type"] === "slider") {
-            echo "<h1>test222</h1>";
+
             $sql = "INSERT INTO REPONSE (reponse,est_correcte, id_question) VALUES (:reponse,true,:id_question)";
             $stmt = $connexion->prepare($sql);
             $stmt->bindParam(':reponse', $question["reponses"]);
@@ -323,85 +352,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Si le type de question est "Choix unique" ou "Choix multiple"
         if (valeur == "choix_unique" || valeur == "choix_multiple") {
-            // Créer un élément label pour l'option 1
-            var label = document.createElement("label");
-            label.setAttribute("for", "option_" + numero + "_1");
-            label.innerHTML = "Option 1 :";
 
-            // Créer un élément input pour l'option 1
-            var input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.setAttribute("id", "option_" + numero + "_1");
-            input.setAttribute("name", "option_" + numero + "_1");
-
-            // Ajouter le label et l'input à la div des options
-            divOptions.appendChild(label);
-            divOptions.appendChild(input);
+            var txt = document.createTextNode("Cochez la ou les bonne(s) réponse(s) :");
+            divOptions.appendChild(txt);
             divOptions.appendChild(document.createElement("br"));
 
-            // Créer un élément label pour l'option 2
-            label = document.createElement("label");
-            label.setAttribute("for", "option_" + numero + "_2");
-            label.innerHTML = "Option 2 :";
 
-            // Créer un élément input pour l'option 2
-            input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.setAttribute("id", "option_" + numero + "_2");
-            input.setAttribute("name", "option_" + numero + "_2");
 
-            // Ajouter le label et l'input à la div des options
-            divOptions.appendChild(label);
-            divOptions.appendChild(input);
-            divOptions.appendChild(document.createElement("br"));
+            for (var i = 1; i <= 4; i++) {
+                // Créer un élément label pour l'option
+                var label = document.createElement("label");
+                label.setAttribute("for", "option_" + numero + "_" + i);
+                label.innerHTML = "Option " + i + " :";
 
-            // Créer un élément label pour l'option 3
-            label = document.createElement("label");
-            label.setAttribute("for", "option_" + numero + "_3");
-            label.innerHTML = "Option 3 :";
+                // Créer un élément input pour l'option
+                var input = document.createElement("input");
+                input.setAttribute("type", "text");
+                input.setAttribute("id", "option_" + numero + "_" + i);
+                input.setAttribute("name", "option_" + numero + "_" + i);
 
-            // Créer un élément input pour l'option 3
-            input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.setAttribute("id", "option_" + numero + "_3");
-            input.setAttribute("name", "option_" + numero + "_3");
-        
-            // Ajouter le label et l'input à la div des options
-            divOptions.appendChild(label);
-            divOptions.appendChild(input);
-            divOptions.appendChild(document.createElement("br"));
+                // Ajouter la checkbok bonne réponse pour l'option
+                if (valeur == "choix_unique") {
+                    var checkbox = document.createElement("input");
+                    checkbox.setAttribute("type", "radio");
+                    checkbox.setAttribute("id", "bonne_reponse_" + numero + "_" + i);
+                    checkbox.setAttribute("name", "bonne_reponse_" + numero + "_" + i);
+                    checkbox.setAttribute("value", i);
+                    divOptions.appendChild(checkbox);
+                } else {
+                    var checkbox = document.createElement("input");
+                    checkbox.setAttribute("type", "checkbox");
+                    checkbox.setAttribute("id", "bonne_reponse_" + numero + "_" + i);
+                    checkbox.setAttribute("name", "bonne_reponse_" + numero + "_" + i);
+                    checkbox.setAttribute("value", i);
+                    divOptions.appendChild(checkbox);
+                }
 
-            // Créer un élément label pour l'option 4
-            label = document.createElement("label");
-            label.setAttribute("for", "option_" + numero + "_4");
-            label.innerHTML = "Option 4 :";
+                // Ajouter le label et l'input à la div des options
+                divOptions.appendChild(label);
+                divOptions.appendChild(input);
+                divOptions.appendChild(document.createElement("br"));
+            }
 
-            // Créer un élément input pour l'option 4
-            input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.setAttribute("id", "option_" + numero + "_4");
-            input.setAttribute("name", "option_" + numero + "_4");
-
-            // Ajouter le label et l'input à la div des options
-            divOptions.appendChild(label);
-            divOptions.appendChild(input);
-            divOptions.appendChild(document.createElement("br"));
-
-            // Créer un élément label pour l'option 5
-            label = document.createElement("label");
-            label.setAttribute("for", "option_" + numero + "_5");
-            label.innerHTML = "Option 5 :";
-
-            // Créer un élément input pour l'option 5
-            input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.setAttribute("id", "option_" + numero + "_5");
-            input.setAttribute("name", "option_" + numero + "_5");
-
-            // Ajouter le label et l'input à la div des options
-            divOptions.appendChild(label);
-            divOptions.appendChild(input);
-            divOptions.appendChild(document.createElement("br"));
         }
 
         // Si le type de question est "Slider"
