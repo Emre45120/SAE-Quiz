@@ -34,6 +34,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     if ($result) {
         session_start();
         $_SESSION["email"] = $email;
+        if ($result["est_admin"] == 1) {
+            $_SESSION["admin"] = true;
+        }
         header("Location: Accueil.php");
         echo "Authentification réussi !";
     } else {
