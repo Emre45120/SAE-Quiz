@@ -51,36 +51,38 @@ $questionnaires = $stmt->fetchAll();
         </nav>
     </header>
     <main>
-    <div class="table-responsive my-4">
-            <table class="table table-dark">
-                <thead>
-                    <tr class="text">
-                        <th scope="col">Questionnaire</th>
-                        <th scope="col">Supprimer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    
-                    // Modifier la requête SQL pour inclure le filtre sélectionné
-                    $sql = "SELECT * FROM QUESTIONNAIRE";
-                    
-                    $result = $connexion->prepare($sql);
-                    $result->execute();
-                    
-                    if ($result->rowCount() > 0) {
-                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<tr>";
-                            echo "<td>" . $row["nomQ"] . "</td>";
-                            echo "<td> <a href='delete.php?id=" . $row["id"] . "'>Supprimer</a></td>";
-                            echo "</tr>";
+    <div class="container">
+        <div class="table-responsive my-4">
+                <table class="table table-dark">
+                    <thead>
+                        <tr class="text">
+                            <th scope="col">Questionnaire</th>
+                            <th scope="col">Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        
+                        // Modifier la requête SQL pour inclure le filtre sélectionné
+                        $sql = "SELECT * FROM QUESTIONNAIRE";
+                        
+                        $result = $connexion->prepare($sql);
+                        $result->execute();
+                        
+                        if ($result->rowCount() > 0) {
+                            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<tr>";
+                                echo "<td>" . $row["nomQ"] . "</td>";
+                                echo "<td> <a href='delete.php?id=" . $row["id"] . "'>Supprimer</a></td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "0 results";
                         }
-                    } else {
-                        echo "0 results";
-                    }
-                    ?>
-                </tbody>
-            </table>
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>

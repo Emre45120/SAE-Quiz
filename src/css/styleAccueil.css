@@ -285,6 +285,10 @@ input[type="submit"]:hover {
   background-color: #3e8e41;
 }
 
+.create {
+  padding: 1em;
+}
+
 
 /* Ajoutez un style pour la section de présentation */
 .presentation {
