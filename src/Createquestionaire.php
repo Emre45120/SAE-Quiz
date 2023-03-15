@@ -183,46 +183,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </nav>
     </header>
 
+<div class="container">
     <!-- Formulaire de création d'un questionnaire -->
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <h2>Créer un questionnaire</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <h2>Créer un questionnaire</h2>
 
-    <label for="titre">Titre du questionnaire :</label>
-    <input type="text" id="titre" name="titre"><br><br>
+        <label for="titre">Titre du questionnaire :</label>
+        <input type="text" id="titre" name="titre"><br><br>
 
 
 
-<!-- Ajout des questions -->
-<div id="questions">
-    <h3>Questions :</h3>
+    <!-- Ajout des questions -->
+    <div id="questions">
+        <h3>Questions :</h3>
 
-    <div class="question">
-        <label for="question_1">Question 1 :</label>
-        <input type="text" id="question_1" name="question_1"><br>
+        <div class="question">
+            <label for="question_1">Question 1 :</label>
+            <input type="text" id="question_1" name="question_1"><br>
 
-        <label for="type_question_1">Type de question :</label>
-        <select id="type_question_1" name="type_question_1" onchange="afficherOptions(this)">
-            <option value="">-- Sélectionner un type de question --</option>
-            <option value="choix_unique">Choix unique</option>
-            <option value="choix_multiple">Choix multiple</option>
-            <option value="libre">Réponse libre</option>
-            <option value="slider">Slider</option>
-        </select><br><br>
+            <label for="type_question_1">Type de question :</label>
+            <select id="type_question_1" name="type_question_1" onchange="afficherOptions(this)">
+                <option value="">-- Sélectionner un type de question --</option>
+                <option value="choix_unique">Choix unique</option>
+                <option value="choix_multiple">Choix multiple</option>
+                <option value="libre">Réponse libre</option>
+                <option value="slider">Slider</option>
+            </select><br><br>
 
-        <div id="options_question_1">
+            <div id="options_question_1">
+            </div>
+
+            
         </div>
 
-        
     </div>
 
-</div>
+    <!-- Bouton pour ajouter une question -->
+    <button type="button" onclick="ajouterQuestion()">Ajouter une question</button><br><br>
 
-<!-- Bouton pour ajouter une question -->
-<button type="button" onclick="ajouterQuestion()">Ajouter une question</button><br><br>
-
-<input type="submit" name="creerquiz" value="Créer le quiz">
-</form>
-
+    <input type="submit" name="creerquiz" value="Créer le quiz">
+    </form>
+<div>
 
 
 
