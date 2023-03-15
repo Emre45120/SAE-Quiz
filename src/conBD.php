@@ -7,13 +7,15 @@ Connexion à MySQL avec PDO
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-<h1>Authentification</h1>
-<form method="post">
-    Email: <input type="text" name="email"><br>
-    Mot de passe: <input type="password" name="password"><br>
-    <input type="submit" value="Se connecter">
-</form>
+<body style= "background-color: grey;">
+<div class="container" style= " background-color: white; width: 50%; margin: auto; padding: 20px; margin-top: 100px; border-radius: 10px;">
+    <h1>Authentification</h1>
+    <form method="post">
+        Email: <input type="text" name="email"><br>
+        Mot de passe: <input type="password" name="password"><br>
+        <input type="submit" value="Se connecter">
+    </form>
+</div>
 </body>
 </html>
 <?php
