@@ -42,6 +42,7 @@ if (isset($_SESSION["email"])) {
                 <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) { ?>
                     <li><a href="admin.php">Admin</a></li>
                     <li><a href="Createquestionaire.php">Créer un questionnaire</a></li>
+                    <li><a href="JSON.php">JSON</a></li>
                 <?php } ?>
                 <?php if (!$is_authenticated) { ?>
                 <li><a href="conBD.php">Se connecter</a></li>

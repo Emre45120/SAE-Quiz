@@ -1,91 +1,4 @@
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
 
-header {
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav li {
-    margin: 0 10px;
-}
-
-nav a {
-    color: #fff;
-    text-decoration: none;
-}
-
-nav a:hover {
-    color: #eee;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-p {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-a {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-}
-
-a:hover {
-    background-color: #444;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  li a {
-    display: block;
-    padding: 10px;
-    background-color: #e1e1e1;
-    text-decoration: none;
-    color: #333;
-    border-radius: 5px;
-  }
-  
- */
-
- /* Global styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -95,6 +8,9 @@ ul {
   body {
     font-family: 'Roboto', sans-serif;
     background-color: #f2f2f2;
+    background-image: url('image_accueil.jpg');
+    background-size: cover;
+    background-position: center;
   }
   
   .container {
@@ -370,3 +286,13 @@ input[type="submit"]:hover {
 }
 
 
+/* Ajoutez un style pour la section de présentation */
+.presentation {
+    background-color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
