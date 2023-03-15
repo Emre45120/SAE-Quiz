@@ -27,6 +27,7 @@ $stmt->execute();
 $questionnaires = $stmt->fetchAll();
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,7 @@ $questionnaires = $stmt->fetchAll();
     <title>Page d'accueil</title>
     <link rel="stylesheet" type="text/css" href="css/styleAccueil.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
 </head>
 <body>
     <header>
@@ -57,7 +59,11 @@ $questionnaires = $stmt->fetchAll();
         </nav>
     </header>
     <main>
-        <h1>Bienvenue sur notre site de quizz <?php echo $nom; ?></h1>
+        <div class="presentation">
+            <h1>Bienvenue sur notre site de quizz</h1>
+            <p>Notre site web offre une variété de quizz amusants pour tester vos connaissances dans différents domaines. Inscrivez-vous dès maintenant pour commencer à jouer!</p>
+            <button>Inscrivez-vous maintenant</button>
+        </div>
     </main>
 </body>
 </html>
