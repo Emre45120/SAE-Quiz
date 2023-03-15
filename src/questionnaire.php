@@ -31,8 +31,9 @@ $questionnaires = $stmt->fetchAll();
     <meta charset="UTF-8">
     <title>Page d'accueil</title>
     <link rel="stylesheet" type="text/css" href="css/styleAccueil.css">
+
 </head>
-<body>
+<body style="text-align: center;">
     <header>
         <nav>
             <ul>
@@ -56,11 +57,14 @@ $questionnaires = $stmt->fetchAll();
     <main>
         <h1>Bienvenue sur notre site de quizz</h1>
         <p>Vous pouvez répondre à des quizz et tester vos connaissances !</p>
-        <ul>
-        <?php foreach ($questionnaires as $questionnaire) { ?>
-            <li><a href="quizz.php?id=<?php echo $questionnaire['id']; ?>"><?php echo $questionnaire['nomQ']; ?></a></li>
-        <?php } ?>
-        </ul>
+        <div class="questionnaires">
+            <ul>
+                <?php foreach ($questionnaires as $questionnaire) { ?>
+                <li><a href="quizz.php?id=<?php echo $questionnaire['id']; ?>"><?php echo $questionnaire['nomQ']; ?></a></li>
+                <?php } ?>
+            </ul>
+        </div>
+
     </main>
 </body>
 </html>

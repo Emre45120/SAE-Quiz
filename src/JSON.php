@@ -43,14 +43,15 @@ if (isset($_SESSION["email"])) {
         </nav>
     </header>
 <body>
+<div class="container">
 	<form method="post" enctype="multipart/form-data" action = "ExtraireImporter.php" target="_self">
 		<label for="json_file">Choisissez un fichier JSON à charger :</label>
 		<input type="file" name="json_file" id="json_file">
 		<br><br>
 		<input type="submit" name="importer" value="Charger un fichier JSON" target="_self">
         <input type = "submit" name = "exporter" value = "Exporter un fichier JSON">
-        
 	</form>
+</div>
 
 </body>
 </html>

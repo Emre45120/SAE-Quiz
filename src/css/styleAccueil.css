@@ -17,6 +17,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    text-align: center;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -300,3 +301,31 @@ input[type="submit"]:hover {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+.questionnaires {
+  margin: 50px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.questionnaires ul {
+  list-style: none;
+  padding: 0;
+}
+
+.questionnaires li {
+  margin-bottom: 10px;
+}
+
+.questionnaires a {
+  display: block;
+  padding: 10px 20px;
+  background-color: #2b2d42;
+  color: #fff;
+  text-decoration: none;
+}
+
+.questionnaires a:hover {
+  background-color: #8d99ae;
+}
+

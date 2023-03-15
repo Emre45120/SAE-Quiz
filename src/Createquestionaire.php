@@ -4,10 +4,11 @@ require("connect.php");
 
 // Vérifier si l'utilisateur est connecté
 session_start(); // démarrer la session
-if (!isset($_SESSION["email"])) {
-    // Rediriger l'utilisateur vers la page de connexion
-    header("Location: conBD.php");
-    exit();
+if (isset($_SESSION["email"])) {
+    // l'utilisateur est connecté
+    $is_authenticated = true;
+    $email = $_SESSION["email"];
+    
 }else if ($_SESSION["admin"] == false) {
     // Rediriger l'utilisateur vers la page de connexion
     header("Location: Accueil.php");
