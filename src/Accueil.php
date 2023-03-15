@@ -19,7 +19,7 @@ $stmt = $connexion->prepare($sql);
 $stmt->bindParam(':email', $email);
 $stmt->execute();
 $user = $stmt->fetch();
-$nom = $user['nom'];
+
 
 $sql = "SELECT * FROM QUESTIONNAIRE";
 $stmt = $connexion->prepare($sql);
@@ -61,17 +61,16 @@ $questionnaires = $stmt->fetchAll();
             </ul>
           </nav>
             <?php if (!$is_authenticated) { ?>
-                <a href="conBD.php" class="button button--primary">Se connecter</a>
+                <button class="button" onclick="window.location.href='conBD.php'">Se connecter</button>
             <?php } ?>
             <?php if ($is_authenticated) { ?>
-                <a href="deconnecter.php" class="button button--primary">Se déconnecter</a>
+                <button class="button" onclick="window.location.href='deconnecter.php'">Se déconnecter</button>
             <?php } ?>
         </div>
       </div>
       <div class="site-header__bottom">
         <div class="wrapper site-header__wrapper bottom">
           <a href="#" class="brand">SAE QUIZ</a>
-          <a href="#" class="button">Button</a>
         </div>
       </div>
     </header>
