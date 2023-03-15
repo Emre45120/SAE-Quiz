@@ -68,6 +68,8 @@ if (isset($_SESSION["email"])) {
         </div>
       </div>
     </header>
+
+    <div class="container">
     <?php
 
 // Vérifier si l'ID du questionnaire est fourni
@@ -78,13 +80,14 @@ if (!isset($_POST["id_questionnaire"])) {
 
 // Récupérer l'ID du questionnaire
 $id_questionnaire = $_POST["id_questionnaire"];
-echo "<p>Questionnaire : " . $id_questionnaire . "</p>";
+echo "<p style='font-size: 32px'>Questionnaire : " . $id_questionnaire . "</p>";
 
 // Récupérer les réponses de l'utilisateur
 // Récupérer les réponses de l'utilisateur
 $reponses_utilisateur = $_POST["reponse"];
 // Vérifier les réponses de l'utilisateur
 $score = 0;
+
 foreach ($reponses_utilisateur as $id_question => $reponses) {
     // Récupérer la question liée à la réponse
     $sql = "SELECT question ,type FROM QUESTION WHERE id_question = :id_question";
@@ -159,13 +162,14 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     
     // Afficher la question, les réponses de l'utilisateur et si la réponse est correcte ou non
     if ($est_correct) {
-        echo "<p class='correct'>Bravo, la réponse à la question \"" . $question . "\" est correcte.<brLa bonne réponse était bien " . implode(", ", $reponses_correctes). "</p>";
+        echo "<p style = 'padding-top : 2em'class='correct'>Bravo, la réponse à la question \"" . $question . "\" est correcte.<brLa bonne réponse était bien " . implode(", ", $reponses_correctes). "</p>";
       } else {
-        echo "<p class='incorrect'>Désolé, la réponse à la question \"" . $question . "\" est incorrecte.<br>La bonne réponse était " . implode(", ", $reponses_correctes). "</p>";
+        echo "<p style = 'padding-top : 2em'class='incorrect'>Désolé, la réponse à la question \"" . $question . "\" est incorrecte.<br>La bonne réponse était " . implode(", ", $reponses_correctes). "</p>";
     }  
 }
 
 ?>
+<div class="score-section">
     <?php
     // afficher le score de l'utilisateur
     echo "<p>Votre score est de : " . $score . " !</p>";
@@ -177,12 +181,13 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     $stmt->bindParam(':score', $score);
     $stmt->execute();
     ?>
+</div>
     <!-- afficher les boutons de navigation -->
     <div class="navigation-buttons">
-        <button onclick="window.location.href='questionnaire.php'">Recommencer un quiz</button>
+        <button style = 'margin : 1em'onclick="window.location.href='questionnaire.php'">Recommencer un quiz</button>
         <button onclick="window.location.href='score.php'">Voir les scores</button>
     </div>
-
+    </div>
 </body>
 </html>
 

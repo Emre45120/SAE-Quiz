@@ -87,7 +87,7 @@ if (isset($_SESSION["email"])) {
 
 	// Afficher le questionnaire ( son nom )
 	foreach ($questionnaires as $questionnaire) {
-		echo "<h1>" . $questionnaire["nomQ"] . "</h1>";
+		echo "<h1 style='font-size: 32px'>" . $questionnaire["nomQ"] . "</h1>";
 	}
 
 	// Récupérer les questions du questionnaire
@@ -106,19 +106,22 @@ if (isset($_SESSION["email"])) {
 		$stmt = $connexion->prepare($sql);
 		$stmt->execute();
 		$reponses = $stmt->fetchAll();
+		if ($question["type"] == "choix_multiple") {
+			echo '<div class="checkbox-container">';
+		}
+		
 		foreach ($reponses as $reponse) {
 			if ($question["type"] == "choix_multiple") {
-				echo '<div class="checkbox-container">';
-				echo '<input type="checkbox"  name="reponse[' . $idq . '][]" value="' . $reponse["reponse"] . '" class="animated-checkbox">';
+				echo '<input type="checkbox"  name="reponse[' . $idq . '][]" value="' . $reponse["reponse"] . '>';
 				echo '<label for="' . $reponse["reponse"] . '">' . $reponse["reponse"] . '</label>';
-				echo '</div><br>';
+				echo '<br>';
 	
 			} elseif ($question["type"] == "choix_unique") {
-				echo '<input type="radio" required name="reponse[' . $idq . ']" value="' . $reponse["reponse"] . '">';
+				echo '<input type="radio" id = "ra" required name="reponse[' . $idq . ']" value="' . $reponse["reponse"] . '">';
 				echo '<label for="' . $reponse["reponse"] . '">' . $reponse["reponse"] . '</label><br><br>';
 	
 			} elseif ($question["type"] == "libre") {
-				echo '<textarea name="reponse[' . $idq . ']" required placeholder="Entrez votre réponse ici"></textarea><br><br>';
+				echo '<textarea name="reponse[' . $idq . ']" id = "text" required placeholder="Entrez votre réponse ici"></textarea><br><br>';
 	
 			} else if ($question["type"] == "slider"){
 				echo '<input type="range" name="reponse[' . $idq . ']" min="0" max="100" value="'. $reponse["reponse"] . '" id="slider" min="0" max="100" step="1">';
@@ -129,6 +132,9 @@ if (isset($_SESSION["email"])) {
 				echo "<p>Erreur : type de question non pris en charge</p>";
 				exit();
 			}
+		}
+		if ($question["type"] == "choix_multiple") {
+			echo '</div>';
 		}
 		echo '<br>';
 	}

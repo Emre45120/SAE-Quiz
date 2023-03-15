@@ -131,18 +131,47 @@
 
   .correct {
     color: green;
+    font-weight: bold;
   }
   
   .incorrect {
     color: red;
+    font-weight: bold;
   }
+  
+  .correct::before {
+    content: '\2713 ';
+  }
+  
+  .incorrect::before {
+    content: '\2717 ';
+  }
+  
 
   /* Styles pour le conteneur de la checkbox */
-.checkbox-container {
-  position: relative;
-  margin-bottom: 10px;
-  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:10px ;
 }
+
+#slider {
+  padding : 1em;
+  margin-top : 1em;
+  margin-bottom : 1em;
+}
+
+#text {
+  padding : 1em;
+  margin-top : 1em;
+  margin-bottom : 1em;
+}
+
+#ra {
+  margin-top : 1em;
+}
+
 
 /* Styles pour la checkbox */
 .animated-checkbox {

@@ -50,7 +50,7 @@ INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (1,"Qu
 INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (2,"Quel est le résultat de 2+2 ?","choix_unique",1);
 INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (3,"Que fait 10+10 ?","choix_multiple",1);
 INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (5,"Quel est le théorème connue utilisé sur les triangle ?","libre",1);
-INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (6,"Mettre un pourcentage bonne rep à 50 ?","slider",1);
+INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (6,"Quel est la moitié de 100 ?","slider",1);
 INSERT INTO QUESTION (id_question, question,type,id_questionnaire) VALUES (4,"Quel sont les différentes boucles qui existe ?","choix_multiple",2);
 
 

@@ -104,3 +104,26 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: blue;
 }
+
+/* Style pour la section de score */
+.score-section {
+  background-color: #f7f7f7;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.score-section p {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.score-section .correct {
+  color: green;
+}
+
+.score-section .incorrect {
+  color: red;
+}
