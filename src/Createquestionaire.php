@@ -2,27 +2,11 @@
 // Connexion à la base de données
 require("connect.php");
 
-// Vérifier si l'utilisateur est connecté
-session_start(); // démarrer la session
-if (isset($_SESSION["email"])) {
-    // l'utilisateur est connecté
-    $is_authenticated = true;
-    $email = $_SESSION["email"];
-    
-}else if ($_SESSION["admin"] == false) {
+if ($_SESSION["admin"] == false) {
     // Rediriger l'utilisateur vers la page de connexion
     header("Location: Accueil.php");
     exit();
 }
-
-// Récupérer le nom de l'utilisateur connecté
-$email = $_SESSION["email"];
-$sql = "SELECT nom FROM UTILISATEUR WHERE email=:email";
-$stmt = $connexion->prepare($sql);
-$stmt->bindParam(':email', $email);
-$stmt->execute();
-$result = $stmt->fetch();
-$nom_utilisateur = $result["nom"];
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -79,10 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     }
-
-                            
-
-                    
 
                     // Vérifier si la réponse contient du texte avant de l'ajouter
                     if ($txt !== "") {
@@ -461,13 +441,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             divOptions.appendChild(label);
             divOptions.appendChild(input);
             divOptions.appendChild(document.createElement("br"));
-        }
-
-
-
-
-        
-        
+        }   
     }
 
     // Fonction qui permet de supprimer les options d'une question
@@ -483,11 +457,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Mettre à jour le compteur de questions
     compteur--;    
     }
-
-    
-
     </script>
-
     </body>
     </html>
     

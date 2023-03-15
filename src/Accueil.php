@@ -1,31 +1,9 @@
 <?php
-
 require("connect.php");
-
-session_start(); // démarrer la session
-if (isset($_SESSION["email"])) {
-    // l'utilisateur est connecté
-    $is_authenticated = true;
-    $email = $_SESSION["email"];
-
-} else {
-    // l'utilisateur n'est pas connecté
-    $is_authenticated = false;
-}
-
-// Récupérer le nom de l'utilisateur connecté
-$sql = "SELECT nom FROM UTILISATEUR WHERE email = :email";
-$stmt = $connexion->prepare($sql);
-$stmt->bindParam(':email', $email);
-$stmt->execute();
-$user = $stmt->fetch();
-
-
 $sql = "SELECT * FROM QUESTIONNAIRE";
 $stmt = $connexion->prepare($sql);
 $stmt->execute();
 $questionnaires = $stmt->fetchAll();
-
 ?>
 
 <!DOCTYPE html>

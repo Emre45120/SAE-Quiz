@@ -21,8 +21,6 @@ if (isset($_SESSION["email"])) {
     echo "Vous devez être connecté pour accéder à ce questionnaire.";
     exit();
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -98,13 +96,6 @@ if (isset($_SESSION["email"])) {
 	$stmt->execute();
 	$questions = $stmt->fetchAll();
 
-	
-
-
-	
-	
-	
-
 	echo '<form method="post" action="resultats.php">';
 	echo '<input type="hidden" name="id_questionnaire" value="' . $id_questionnaire . '"><br><br>';
 	
@@ -145,9 +136,6 @@ if (isset($_SESSION["email"])) {
 	echo '</form>';
 	  
 	?>    
-
-
-	
 	</div>
 </body>
 <script>

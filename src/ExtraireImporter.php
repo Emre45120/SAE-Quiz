@@ -2,17 +2,6 @@
 
 require("connect.php");
 
-session_start(); // démarrer la session
-if (isset($_SESSION["email"])) {
-    // l'utilisateur est connecté
-    $is_authenticated = true;
-    $email = $_SESSION["email"];
-
-} else {
-    // l'utilisateur n'est pas connecté
-    $is_authenticated = false;
-}
-
 $sql = "SELECT * FROM QUESTIONNAIRE";
 $stmt = $connexion->prepare($sql);
 $stmt->execute();
@@ -150,11 +139,6 @@ $questionnaires = $stmt->fetchAll();
                                 $stmt->execute([$id_utilisateur, $id_questionnaire, $score]);
                             }
                         }
-
-
-                        
-
-
                     }
                 }
             }

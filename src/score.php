@@ -28,9 +28,6 @@ INNER JOIN QUESTIONNAIRE q ON s.id_questionnaire = q.id;
 ";
 $result = $connexion->prepare($sql);
 $result->execute();
-
-
-
 ?>
 
 <!DOCTYPE html>

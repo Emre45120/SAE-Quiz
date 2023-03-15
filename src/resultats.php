@@ -107,9 +107,6 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
     // Vérifier si les réponses de l'utilisateur sont correctes
     $est_correct = true;
 
-    
-
-    
     if ($type_question == "choix_unique") {
         if (!in_array($reponses, $reponses_correctes)) {
             $est_correct = false;
@@ -165,9 +162,7 @@ foreach ($reponses_utilisateur as $id_question => $reponses) {
         echo "<p class='correct'>Bravo, la réponse à la question \"" . $question . "\" est correcte.<brLa bonne réponse était bien " . implode(", ", $reponses_correctes). "</p>";
       } else {
         echo "<p class='incorrect'>Désolé, la réponse à la question \"" . $question . "\" est incorrecte.<br>La bonne réponse était " . implode(", ", $reponses_correctes). "</p>";
-    }
-      
-
+    }  
 }
 
 ?>

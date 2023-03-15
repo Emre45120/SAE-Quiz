@@ -1,13 +1,7 @@
 <?php
 require("connect.php");
 
-// Vérifier si l'utilisateur est connecté
-session_start(); // démarrer la session
-if (!isset($_SESSION["email"])) {
-    // Rediriger l'utilisateur vers la page de connexion
-    header("Location: conBD.php");
-    exit();
-}else if ($_SESSION["admin"] == false) {
+if ($_SESSION["admin"] == false) {
     // Rediriger l'utilisateur vers la page de connexion
     header("Location: Accueil.php");
     exit();
@@ -27,6 +21,7 @@ $stmt = $connexion->prepare($sql);
 $stmt->bindParam(':id_questionnaire', $id_questionnaire);
 $stmt->execute();
 $questions = $stmt->fetchAll();
+
 foreach ($questions as $question) {
     $id_question = $question["id_question"];
     $sql = "DELETE FROM REPONSE WHERE id_question=:id_question";
