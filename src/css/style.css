@@ -1,39 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+.wrapper {
+  max-width: 1140px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #222;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
+  font-family: "Roboto", sans-serif;
 }
 
-h1 {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 40px;
+.sr-only {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
 }
 
-form {
-    width: 300px;
-    margin: 0 auto;
-    text-align: center;
+.button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  color: #fff;
+  background-color:whitesmoke;
+  min-width: 120px;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-align: center;
 }
 
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.button svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  fill: #fff;
 }
 
-input[type="submit"] {
-    padding: 10px 20px;
-    background-color: lightblue;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+.button span {
+  display: none;
 }
 
-input[type="submit"]:hover {
-    background-color: blue;
+@media (min-width: 600px) {
+  .button span {
+    display: initial;
+  }
 }
+
+.button--icon {
+  min-width: initial;
+  padding: 0.5rem;
+}
+

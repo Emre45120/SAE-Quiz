@@ -46,37 +46,7 @@
     background-color: #005fa3;
   }
   
-  /* Navigation styles */
-  nav {
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  nav li {
-    margin: 0 10px;
-  }
-  
-  nav a {
-    color: #333;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 700;
-    transition: color 0.2s ease;
-  }
-  
-  nav a:hover {
-    color: #0077cc;
-  }
-  
+
   /* Header styles */
   header {
     background-color: #fff;

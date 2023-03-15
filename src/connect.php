@@ -2,9 +2,9 @@
 <?php
 
 
-$dsn="mysql:dbname=DBarslanhan;host=localhost";
+$dsn="mysql:dbname=DBaazzouz;host=localhost";
     try{
-      $connexion=new PDO($dsn,"root","arslanhan45.");
+      $connexion=new PDO($dsn,"root","root");
       $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
     }
     catch(PDOException $e){
