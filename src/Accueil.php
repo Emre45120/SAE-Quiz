@@ -57,7 +57,7 @@ $questionnaires = $stmt->fetchAll();
         <div class="presentation">
             <h1>Bienvenue sur notre site de quizz</h1>
             <p>Notre site web offre une variété de quizz amusants pour tester vos connaissances dans différents domaines. Inscrivez-vous dès maintenant pour commencer à jouer!</p>
-            <button>Inscrivez-vous maintenant</button>
+            <button onclick="window.location.href='inscriptionBD.php'" >Inscrivez-vous maintenant</button>
         </div>
     </main>
 </body>
