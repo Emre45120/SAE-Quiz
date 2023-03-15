@@ -45,15 +45,19 @@ $result->execute();
     <header>
         <nav>
             <ul>
-                <li><a href="Accueil.php">Accueil</a></li>
+            <li><a href="Accueil.php">Accueil</a></li>
                 <li><a href="questionnaire.php">Questionnaire</a></li>
                 <li><a href="score.php">Score</a></li>
+                <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) { ?>
+                    <li><a href="admin.php">Admin</a></li>
+                    <li><a href="Createquestionaire.php">Créer un questionnaire</a></li>
+                <?php } ?>
                 <?php if (!$is_authenticated) { ?>
                 <li><a href="conBD.php">Se connecter</a></li>
-            <?php } ?>
+                <?php } ?>
                 <?php if ($is_authenticated) { ?>
                 <li><a href="deconnecter.php">Se déconnecter</a></li>
-            <?php } ?>
+                <?php } ?>
             </ul>
         </nav>
     </header>
